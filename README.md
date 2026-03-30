@@ -1,255 +1,347 @@
-MassData OTP Pro - Plugin Description
-=====================================
+MassData OTP Pro
+================
 
-📱 Overview
+**Enterprise-grade SMS OTP verification for WooCommerce + Full Order SMS Notification System**
+
+> A comprehensive SMS solution for WooCommerce that combines phone number verification during registration with automated order status notifications via the MassData SMS gateway.
+
+🚀 Features
 -----------
 
-**MassData OTP Pro** is a powerful WooCommerce extension that adds phone number verification via OTP (One-Time Password) during user registration. Built with security and customization in mind, it provides complete control over the verification process through an intuitive admin dashboard.
+### 📱 OTP Phone Verification
 
-✨ Key Features
---------------
-
-### Core Functionality
-
-*   **SMS OTP Verification** - Verify customer phone numbers during WooCommerce registration
+*   **SMS OTP verification** during WooCommerce registration
     
-*   **Bangladesh Phone Support** - Specifically optimized for Bangladeshi phone numbers (01XXXXXXXXX format)
+*   **Real-time phone validation** with Bangladesh mobile number format (01XXXXXXXXX)
     
-*   **Real-time Verification** - AJAX-powered OTP sending and verification without page reload
+*   **AJAX-based OTP sending** – no page reload required
     
-*   **Session-based OTP** - 5-minute OTP validity with secure transient storage
+*   **5-minute OTP expiry** for security
     
-
-### Admin Dashboard
-
-*   **Full Control Panel** - Enable/disable OTP verification with one click
+*   **Customizable company name** in SMS templates
     
-*   **API Configuration** - Easy setup for MassData SMS API credentials
-    
-*   **Company Branding** - Customize company name appearing in SMS messages
-    
-*   **Live API Testing** - Test connection and check balance directly from settings
-    
-*   **SMS Preview** - Real-time preview of how your SMS will look
+*   **Auto-save verified phone number** to user's billing phone field
     
 
-### Security Features
+### 🛒 Order SMS Notifications
 
-*   **Footer Protection System** - Built-in integrity check prevents unauthorized modification
+*   **Automatic SMS alerts** for order status changes
     
-*   **Tamper Detection** - Automatic plugin disable if footer credits are removed
+*   **Customizable SMS templates** for each order status:
     
-*   **Activity Logging** - Records all tampering attempts for security auditing
-    
-*   **Nonce Verification** - Secure AJAX requests with WordPress nonces
-    
-*   **Input Validation** - Thorough phone number validation and sanitization
-    
-
-### Developer-Friendly
-
-*   **Extensible Code** - Well-structured OOP PHP with hooks and filters
-    
-*   **AJAX Handlers** - Ready-to-use endpoints for custom integrations
-    
-*   **User Meta Storage** - Automatically saves verified phone numbers to user profile
-    
-*   **Translation Ready** - All text strings are prepared for localization
-    
-
-🚀 How It Works
----------------
-
-1.  **User Registration Flow**
-    
-    *   User enters phone number on WooCommerce registration form
+    *   Pending Payment (অপেক্ষমাণ পেমেন্ট)
         
-    *   Clicks "Send OTP" to request verification code
+    *   Processing (প্রসেসিং)
         
-    *   Receives SMS with 6-digit OTP
+    *   On Hold (হোল্ড)
         
-    *   Enters OTP for verification
+    *   Completed (সম্পন্ন)
         
-    *   Completes registration only after successful verification
+    *   Cancelled (বাতিল)
         
-2.  text\[Company Name\]Your OTP Is: 123456Valid 2 MinutesThanks From\[Company Name\]
+    *   Refunded (ফেরত)
+        
+    *   Failed (ব্যর্থ)
+        
+*   **New order SMS** notification on placement
     
-3.  **Admin Control**
+*   **Admin notification** option with customizable phone number
     
-    *   Enable/disable verification anytime
+*   **Multi-status activation** – choose which statuses trigger SMS
+    
+*   **Test SMS feature** to validate templates
+    
+
+### 📝 SMS Templates
+
+*   **Separate templates** for each order status
+    
+*   **Rich variable support** for dynamic content:
+    
+    *   {customer\_name} – Customer's full name
         
-    *   Update API credentials
+    *   {order\_id} – Order number
         
-    *   Customize SMS sender information
+    *   {order\_total} – Order total amount
         
-    *   Test API connectivity
+    *   {order\_status} – Current order status
+        
+    *   {payment\_method} – Payment method used
+        
+    *   {shop\_name} – Website/blog name
+        
+    *   {order\_date} – Order creation date
+        
+    *   {billing\_address} – Customer's billing address
+        
+    *   {shipping\_address} – Customer's shipping address
+        
+    *   {items\_list} – List of ordered items with quantities
+        
+    *   {customer\_note} – Customer's order note
         
 
-💻 Technical Specifications
----------------------------
+### 📊 SMS Logs
 
-*   **WordPress Version**: 5.0+
+*   **Complete history** of all sent SMS
     
-*   **WooCommerce Version**: 4.0+
+*   **Success/failure tracking** with error messages
     
-*   **PHP Version**: 7.2+
+*   **Searchable log table** with order linking
     
-*   **Database**: Uses WordPress transients for OTP storage
+*   **Last 500 entries** storage with auto-cleanup
     
-*   **API Integration**: MassData SMS Gateway
-    
-*   **Security**: Nonce verification, data sanitization, capability checks
+*   **One-click log clearing** option
     
 
-🔧 Installation
----------------
+### 🔧 Admin Features
 
-1.  Upload plugin files to /wp-content/plugins/massdata-otp-pro/
+*   **Dedicated admin menu** with sub-pages:
     
-2.  Activate plugin through WordPress admin panel
+    *   OTP Settings – API configuration and test
+        
+    *   Order SMS – Notification settings and test
+        
+    *   SMS Templates – Customize messages per status
+        
+    *   SMS Logs – View and manage sent messages
+        
+*   **API testing tool** to verify gateway connection
     
-3.  Navigate to "MassData OTP Pro" menu
+*   **Balance check** via MassData API
     
-4.  Configure API credentials and settings
-    
-5.  Enable OTP verification
-    
-
-⚙️ Configuration Options
-------------------------
-
-SettingDescriptionDefaultStatusEnable/disable OTP verificationEnabledCompany NameYour company name for SMSYour CompanyAPI KeyMassData SMS API key-Sender IDSMS sender ID8809617613279
-
-📊 Database Usage
------------------
-
-*   **Options**: massdata\_pro\_settings, massdata\_footer\_hash
-    
-*   **Transients**: pro\_otp\_\* (5 minutes), pro\_verified\_\* (10 minutes)
-    
-*   **User Meta**: billing\_phone
-    
-
-🔒 Security Architecture
-------------------------
-
-### Footer Protection System
-
-The plugin implements a unique security measure that ties functionality to footer credits:
-
-*   Generates hash of footer content on activation
-    
-*   Continuously verifies footer integrity
-    
-*   Automatically disables if footer is modified
-    
-*   Logs all tampering attempts
-    
-
-### Validation Layers
-
-1.  **Client-side**: JavaScript phone format validation
-    
-2.  **Server-side**: PHP regex validation
-    
-3.  **API-level**: MassData gateway validation
-    
-4.  **WordPress**: Nonce and capability checks
-    
-
-🎯 Use Cases
-------------
-
-*   **E-commerce Stores** - Verify customer phone numbers for order updates
-    
-*   **Membership Sites** - Ensure valid contact information for members
-    
-*   **Service Platforms** - Two-factor authentication for user accounts
-    
-*   **Local Businesses** - Bangladeshi phone number verification
-    
-
-🌟 Benefits
------------
-
-*   **Reduce Fake Registrations** - Verify genuine phone numbers
-    
-*   **Customer Communication** - Collect valid numbers for SMS marketing
-    
-*   **Enhanced Security** - Add verification layer to registration
-    
-*   **Brand Consistency** - Custom SMS with your company name
-    
-*   **User Trust** - Professional verification process
-    
-
-📞 Support & Contact
---------------------
-
-**Developer:** Moursalin Islam
-
-*   📧 Email: morsalinislam.net@gmail.com
-    
-
-**Company:** OnexusDev
-
-*   🌐 Website: [onexusdev.xyz](https://onexusdev.xyz/)
-    
-*   📧 Email: onexusdev@gmail.com
-    
-*   📘 Facebook: [facebook.com/onexusdev](https://facebook.com/onexusdev)
-    
-
-_"Code The Future, Live The Dream"_
-
-📝 Changelog
-------------
-
-### Version 4.0
-
-*   Added footer protection system
-    
-*   Enhanced security features
-    
-*   Improved admin interface
-    
-*   Added live API testing
-    
-*   Optimized OTP handling
-    
-
-### Previous Versions
-
-*   Basic OTP functionality
-    
-*   WooCommerce integration
-    
-*   MassData API support
+*   **Security integrity check** with tampering protection
     
 
 📋 Requirements
 ---------------
 
-*   WordPress 5.0 or higher
+RequirementMinimumWordPress5.8+PHP8.0+WooCommerceLatest versionSMS GatewayMassData API credentials
+
+🔌 Installation
+---------------
+
+1.  **Upload the plugin** to /wp-content/plugins/massdata-otp-pro/
     
-*   WooCommerce 4.0 or higher
-*   PHP 7.2 or higher
-*   cURL support enabled
-*   MassData SMS account
+2.  **Activate** the plugin through the WordPress admin panel
+    
+3.  **Ensure WooCommerce** is active
+    
+4.  **Configure API credentials** in **MassData SMS Pro → OTP Settings**
+    
+5.  **Enable OTP verification** and/or **Order SMS** as needed
     
 
-⚠️ Important Notes
+⚙️ Configuration Guide
+----------------------
+
+### Step 1: API Configuration
+
+Navigate to **MassData SMS Pro → OTP Settings**:
+
+*   Enter your **API Key**
+    
+*   Enter your **Sender ID**
+    
+*   Set your **Company Name** (appears in SMS)
+    
+*   Click **Save Settings**
+    
+
+### Step 2: Test API Connection
+
+*   Click **API Test করুন** to verify credentials
+    
+*   If successful, your balance will be displayed
+    
+
+### Step 3: Enable OTP Verification
+
+*   Check **OTP Verification চালু করুন**
+    
+*   Save settings – OTP field will appear on registration page
+    
+
+### Step 4: Configure Order SMS
+
+Navigate to **MassData SMS Pro → Order SMS**:
+
+*   Enable **Order SMS পাঠানো সক্রিয় করুন**
+    
+*   Choose which order statuses trigger SMS
+    
+*   Optionally enable **Admin notification** with admin phone number
+    
+*   Save settings
+    
+
+### Step 5: Customize SMS Templates
+
+Navigate to **MassData SMS Pro → SMS Templates**:
+
+*   Edit templates for each order status
+    
+*   Use available variables for dynamic content
+    
+*   Enable/disable individual status templates
+    
+*   Save templates
+    
+
+📱 SMS Template Examples
+------------------------
+
+**Processing Order (প্রসেসিং)**
+
+প্রিয় {customer\_name},
+
+আপনার অর্ডার #{order\_id} প্রসেস হচ্ছে।
+
+মোট: {order\_total}
+
+ধন্যবাদ, {shop\_name}
+
+**Completed Order (সম্পন্ন)**
+
+প্রিয় {customer\_name},
+
+আপনার অর্ডার #{order\_id} সফলভাবে ডেলিভারি হয়েছে।
+
+আমাদের সাথে থাকুন।
+
+{shop\_name}
+
+🔒 Security Features
+--------------------
+
+*   **Footer integrity check** – prevents plugin tampering
+    
+*   **Tampering logging** – records unauthorized modifications
+    
+*   **Nonce validation** on all AJAX requests
+    
+*   **Capability checks** for admin actions
+    
+*   **OTP expiry** (5 minutes) for security
+    
+*   **Phone number format validation** (Bangladesh format)
+    
+
+🛡️ Integrity Protection
+------------------------
+
+The plugin includes a unique footer protection system:
+
+*   If plugin footer is modified, OTP functionality is automatically disabled
+    
+*   Tampering attempts are logged to /wp-content/massdata-security.log
+    
+*   A visual security alert is displayed in admin panel
+    
+
+🌐 Language Support
+-------------------
+
+*   **Bengali** interface text throughout admin panel
+    
+*   **English** fallback support
+    
+*   SMS templates support both Bengali and English content
+    
+*   Admin menu items with Bengali descriptions
+    
+
+📊 SMS Log Format
+-----------------
+
+Each log entry includes:
+
+*   **Timestamp** – Date and time of sending
+    
+*   **Order ID** – Link to edit order
+    
+*   **Phone number** – Recipient's number
+    
+*   **Status** – Order status that triggered SMS
+    
+*   **Message** – Actual SMS content sent
+    
+*   **Result** – Success/Failure status with error details
+    
+
+🧪 Testing
+----------
+
+### Test OTP Verification
+
+1.  Go to WooCommerce registration page
+    
+2.  Enter a valid Bangladesh phone number (01XXXXXXXXX)
+    
+3.  Click **OTP পাঠান**
+    
+4.  Enter the received OTP
+    
+5.  Complete registration
+    
+
+### Test Order SMS
+
+1.  Go to **MassData SMS Pro → Order SMS**
+    
+2.  Scroll to **টেস্ট SMS পাঠান** section
+    
+3.  Enter a phone number
+    
+4.  Select an order status
+    
+5.  Click **📤 টেস্ট SMS পাঠান**
+    
+6.  Verify the test message is received
+    
+
+👨‍💻 Developer Information
+---------------------------
+
+**Developer:** Moursalin Islam**Email:** morsalinislam.net@gmail.com**Agency:** OnexusDev**Website:** [onexusdev.xyz](https://onexusdev.xyz/)**Support:** onexusdev@gmail.com
+
+📄 License
+----------
+
+**GPL v2 or later**[https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
+
+🙏 Acknowledgments
 ------------------
 
-*   The plugin requires an active MassData SMS account
+*   WooCommerce for providing the e-commerce framework
     
-*   SMS charges apply as per MassData pricing
+*   MassData for SMS gateway services
     
-*   Footer credit must remain intact for functionality
-    
-*   Compatible with most WordPress themes
-    
-*   Regular updates recommended for security
+*   WordPress community for plugin development standards
     
 
-**MassData OTP Pro** - The complete phone verification solution for WooCommerce stores, built with love by OnexusDev team.
+🔄 Changelog
+------------
+
+### Version 5.0.0
+
+*   Complete plugin rewrite with enhanced security
+    
+*   Added Order SMS notification system
+    
+*   Added customizable SMS templates per order status
+    
+*   Added SMS logging with admin interface
+    
+*   Added API testing tool
+    
+*   Added admin notification option
+    
+*   Enhanced footer integrity protection
+    
+*   Bengali language support throughout admin
+    
+*   Multiple order status support
+    
+
+_Code The Future, Live The Dream_**OnexusDev**
